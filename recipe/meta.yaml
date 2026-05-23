@@ -6,23 +6,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-segment-anything-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-segment-anything-{{ version }}.tar.gz
   sha256: b45a479942b0e6aaf6f8a03b7f224aa185eec3e50bbb7d4ea9c4b14a31c1ef3f
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python {{ python_min }}
   run:
     - magicgui
     - napari
     - numpy
-    - python >=3.8
+    - python >={{ python_min }}
     - pytorch
     - qtpy
     - segment-anything
@@ -36,6 +36,7 @@ test:
     # - pip check  # Fails due to segment-anything
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/jookuma/napari-segment-anything
